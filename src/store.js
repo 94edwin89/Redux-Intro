@@ -5,7 +5,7 @@ import CreateCustomer  from "./features/cutomers/customerSlice";
 
 
 const rootReducer = combineReducers({
-  acount: AccountReducer,
+  account: AccountReducer,
   customer: CreateCustomer,
 });
 

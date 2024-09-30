@@ -10,7 +10,7 @@ const initialStateAccount = {
         return { ...state, balance: state.balance + action.payload };
   
       case "account/withdraw":
-        return { ...state, balance: state.balance + action.payload };
+        return { ...state, balance: state.balance - action.payload };
   
       case "account/requestLoan":
         if (state.loan > 0) return state;
@@ -38,14 +38,14 @@ const initialStateAccount = {
   }
   
   export function withdraw(amount) {
-    return { type: "account/deposit", payload: amount };
+    return { type: "account/withdraw", payload: amount };
   }
   
-  export function requestLoan(amount, payload) {
+  export function requestLoan(amount, purpose) {
     return {
       type: "account/requestLoan",
-      payload: amount,
-      purpose: payload,
+      payload: {amount,purpose},
+      
     };
   }
   
