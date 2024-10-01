@@ -4,8 +4,10 @@ import { configureStore } from "@reduxjs/toolkit";
 
 
 const store = configureStore({
-  account:AccountReducer,
+  reducer:{
+    account:AccountReducer,
   customer: CustomerReducer
+  }
 })
 
 export default store;
