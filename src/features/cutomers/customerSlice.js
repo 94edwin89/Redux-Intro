@@ -1,53 +1,69 @@
-const initialStateCustomer = {
-    fullName: "",
-    nationalID: "",
-    createdAt: "",
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  fullName: "",
+  nationalID: "",
+  createdAt: "",
+};
+
+const customerSlice = createSlice({
+  name: "customer",
+  initialState,
+  reducers: {
+    createCustomer: {
+      prepare(fullName, nationalID) {
+        return {
+          payload: {
+            fullName,
+            nationalID,
+            createdAt: new Date().toISOString(),
+          },
+        };
+      },
+      reducer(state, action) {
+        state.fullName = action.payload.fullName;
+        state.nationalID = action.payload.nationalID;
+        state.createdAt = action.payload.createdAt;
+      },
+    },
+    updateName(state, action) {
+      state.fullName = action.payload;
+    },
+  },
+});
+
+export const { createCustomer, updateName } = customerSlice.actions;
+
+export default customerSlice.reducer;
+/*
+export default function CustomerReducer(state = initialState, action) {
+  switch (action.type) {
+    case "customer/createCustomer":
+      return {
+        ...state,
+        fullName: action.payload.fullName,
+        nationalID: action.payload.nationalID,
+        createAt: action.payload.createAt,
+      };
+    case "customer/updateName":
+      return {
+        ...state,
+        fullName: action.payload,
+      };
+
+    default:
+      return state;
+  }
+}
+
+export function CreateCustomer(fullName, nationalID) {
+  return {
+    type: "customer/createCustomer",
+    payload: { fullName, nationalID, createdAt: new Date().toISOString() },
   };
-  
-  
-  
-  export default function CustomerReducer(state = initialStateCustomer, action) {
-    switch (action.type) {
-      case "customer/createCustomer":
-        return {
-          ...state,
-          fullName: action.payload.fullName,
-          nationalID: action.payload.nationalID,
-          createAt: action.payload.createAt,
-        };
-      case "customer/updateName":
-        return {
-          ...state,
-          fullName: action.payload,
-        };
-  
-      default:
-        return state;
-    }
-  }
-  
-  
-  // store.dispatch({ type: "account/deposit", payload: 500 });
-  // store.dispatch({ type: "account/withdraw", payload: 200 });
-  
-  // store.dispatch({
-  //   type: "acount/requestLoan",
-  //   payload: 1000,
-  //   purpose: "Buy a car",
-  // });
-  
-  // store.dispatch({type:'acount/payLoan'})
-  
-  
-  
-  export function CreateCustomer(fullName, nationalID) {
-    return {
-      type: "customer/createCustomer",
-      payload: { fullName, nationalID, createdAt: new Date().toISOString() },
-    };
-  }
-  
-  export function updateName(fullName) {
-    return { type: "customer/updateName", payload: fullName };
-  }
-  
+}
+
+export function updateName(fullName) {
+  return { type: "customer/updateName", payload: fullName };
+}
+*/
